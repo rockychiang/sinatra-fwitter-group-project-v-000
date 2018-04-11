@@ -22,6 +22,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/signup' do
+<<<<<<< HEAD
     user = User.new(params)
     if user.save
       session[:user_id] = user.id
@@ -129,6 +130,19 @@ class ApplicationController < Sinatra::Base
     else
       redirect "/tweets/#{tweet.id}"
     end
+=======
+    if !logged_in?
+      params.each{|k,v| redirect '/signup' if v.empty?}
+      @user = User.new(params)
+      @user.save
+      session[:user_id] = @user.id
+    end
+    redirect '/tweets'
+  end
+
+  get '/tweets' do
+    erb :'/tweets/tweets'
+>>>>>>> 5bd35b730cf58c5ccf23ab67a13c021017f1773c
   end
 
   helpers do
